@@ -26,6 +26,8 @@ if (validateFirebaseConfig()) {
 
 admin.initializeApp({
   credential,
+  databaseURL: env.FIREBASE_DATABASE_URL || `https://${env.FIREBASE_PROJECT_ID}.firebaseio.com`,
 })
 
 export const db = admin.firestore()
+export const realtimeDb = admin.database()
