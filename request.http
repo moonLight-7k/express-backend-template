@@ -1,0 +1,117 @@
+### Variables
+@baseUrl = http://localhost:3000
+@apiUrl = {{baseUrl}}/api/v1
+@contentType = application/json
+
+
+### Health Check (Direct Route)
+GET {{baseUrl}}/health
+Accept: application/json
+
+
+### Version Endpoint (Requires Auth)
+GET {{apiUrl}}/version
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+
+### Health Endpoint (API Route - Requires Auth)
+GET {{apiUrl}}/health
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+
+### Sign Up
+# @name signup
+POST {{apiUrl}}/auth/signup
+Content-Type: {{contentType}}
+
+{
+  "email": "test@example.com",
+  "password": "testPassword123",
+  "displayName": "Test User"
+}
+
+
+### Login
+# @name login
+POST {{apiUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "test@example.com",
+  "password": "testPassword123"
+}
+
+
+### Refresh Token
+# @name refreshToken
+POST {{apiUrl}}/auth/refresh-token
+Content-Type: {{contentType}}
+Authorization: Bearer {{authToken}}
+
+{
+  "refreshToken": "your_refresh_token_here"
+}
+
+
+### Delete User Account
+# @name deleteUser
+DELETE {{apiUrl}}/auth/delete/user123
+Authorization: Bearer {{authToken}}
+
+
+### Login and capture token
+# @name loginForToken
+POST {{apiUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "test@example.com",
+  "password": "testPassword123"
+}
+
+
+@authToken = {{loginForToken.response.body.accessToken}}
+
+
+### Test authenticated endpoint with captured token
+GET {{apiUrl}}/health
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+
+### Test version endpoint with captured token
+GET {{apiUrl}}/version
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+
+### Test 404 - Non-existent endpoint
+GET {{apiUrl}}/nonexistent
+Accept: application/json
+
+
+### Test unauthorized access
+GET {{apiUrl}}/health
+Accept: application/json
+
+
+### Test invalid login
+POST {{apiUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "invalid@example.com",
+  "password": "wrongpassword"
+}
+
+
+### Test malformed request
+POST {{apiUrl}}/auth/signup
+Content-Type: {{contentType}}
+
+{
+  "email": "invalid-email",
+  "password": ""
+}
