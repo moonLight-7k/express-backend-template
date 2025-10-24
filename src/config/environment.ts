@@ -21,6 +21,11 @@ interface EnvironmentConfig {
     JWT_SECRET?: string
 
     DATABASE_URL?: string
+
+    REDIS_HOST: string
+    REDIS_PORT: number
+    REDIS_PASSWORD?: string
+    REDIS_DB?: number
 }
 
 /**
@@ -64,6 +69,11 @@ export function getEnvironmentConfig(): EnvironmentConfig {
         JWT_SECRET: process.env.JWT_SECRET,
 
         DATABASE_URL: process.env.DATABASE_URL,
+
+        REDIS_HOST: process.env.REDIS_HOST || 'localhost',
+        REDIS_PORT: parseInt(process.env.REDIS_PORT || '6379', 10),
+        REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+        REDIS_DB: parseInt(process.env.REDIS_DB || '0', 10),
     }
 }
 

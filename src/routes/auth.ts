@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import {
-  signup,
-  login,
-  deleteAccount,
-  refreshToken,
+    signup,
+    login,
+    deleteAccount,
+    refreshToken,
 } from '../controller/auth'
 import { authMiddleware } from '../middleware/auth'
 

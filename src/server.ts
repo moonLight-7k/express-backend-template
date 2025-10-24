@@ -21,8 +21,13 @@ import { v4 as uuidv4 } from 'uuid'
 import { apiRouter } from './routes'
 import { logger } from './utils/logger'
 import { env, isDevelopment, isProduction } from './config/environment'
+import { initializeAllProcessors } from './queue/processors'
+import { queueManager } from './queue/queueManager'
 
 const app = express()
+
+// Initialize queue processors
+initializeAllProcessors()
 
 app.use(
   cors({
@@ -128,4 +133,17 @@ app.use(
 
 app.listen(PORT, () => {
   logger.info(`🔥 Server running on http://localhost:${PORT}`)
+})
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  logger.info('SIGTERM signal received: closing HTTP server and queues')
+  await queueManager.closeAll()
+  process.exit(0)
+})
+
+process.on('SIGINT', async () => {
+  logger.info('SIGINT signal received: closing HTTP server and queues')
+  await queueManager.closeAll()
+  process.exit(0)
 })
