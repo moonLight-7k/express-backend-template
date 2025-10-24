@@ -1,11 +1,6 @@
 import { Router } from 'express'
-import {
-  signup,
-  login,
-  deleteAccount,
-  refreshToken,
-} from '../controller/auth'
-import { authMiddleware } from '../middleware/auth'
+import { signup, login, deleteAccount, refreshToken } from '@/controller/auth'
+import { authMiddleware } from '@/middleware/auth'
 
 const authRouter = Router()
 

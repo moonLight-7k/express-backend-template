@@ -18,9 +18,9 @@ import compression from 'compression'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan'
 import { v4 as uuidv4 } from 'uuid'
-import { apiRouter } from './routes'
-import { logger } from './utils/logger'
-import { env, isDevelopment, isProduction } from './config/environment'
+import { apiRouter } from '@/routes'
+import { logger } from '@/utils/logger'
+import { env, isDevelopment, isProduction } from '@/config/environment'
 
 const app = express()
 

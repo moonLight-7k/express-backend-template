@@ -4,7 +4,6 @@ import { env, validateFirebaseConfig } from './environment'
 
 dotenv.config()
 
-
 let credential
 
 if (validateFirebaseConfig()) {
@@ -26,7 +25,9 @@ if (validateFirebaseConfig()) {
 
 admin.initializeApp({
   credential,
-  databaseURL: env.FIREBASE_DATABASE_URL || `https://${env.FIREBASE_PROJECT_ID}.firebaseio.com`,
+  databaseURL:
+    env.FIREBASE_DATABASE_URL ||
+    `https://${env.FIREBASE_PROJECT_ID}.firebaseio.com`,
 })
 
 export const db = admin.firestore()

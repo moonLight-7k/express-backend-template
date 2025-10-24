@@ -1,4 +1,4 @@
-import { db } from '../config/firebase'
+import { db } from '@/config/firebase'
 import admin from 'firebase-admin'
 import {
   FirestoreDocument,
@@ -6,8 +6,8 @@ import {
   FirestoreListResponse,
   QueryOptions,
   PaginationOptions,
-} from '../types/firestore'
-import { logger } from '../utils/logger'
+} from '@/types/firestore'
+import { logger } from '@/utils/logger'
 
 /**
  * Create a new document with auto-generated ID
@@ -37,7 +37,8 @@ async function createDocument<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error creating document in collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error creating document in collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -78,7 +79,8 @@ async function createDocumentWithId<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error creating document with ID: ${docId} in collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error creating document with ID: ${docId} in collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -121,7 +123,8 @@ async function getDocumentById<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error fetching document with ID: ${docId} from collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error fetching document with ID: ${docId} from collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -155,7 +158,8 @@ async function getAllDocuments<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error fetching all documents from collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error fetching all documents from collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -225,7 +229,8 @@ async function queryDocuments<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error querying documents from collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error querying documents from collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -295,7 +300,8 @@ async function updateDocument<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error updating document with ID: ${docId} in collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error updating document with ID: ${docId} in collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -335,7 +341,8 @@ async function setDocument<T extends FirestoreDocument>(
     }
   } catch (error) {
     logger.error(
-      `Error setting document with ID: ${docId} in collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error setting document with ID: ${docId} in collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -368,7 +375,8 @@ async function deleteDocument(
     }
   } catch (error) {
     logger.error(
-      `Error deleting document with ID: ${docId} from collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error deleting document with ID: ${docId} from collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -478,7 +486,8 @@ async function batchWriteDocuments(
     }
   } catch (error) {
     logger.error(
-      `Error executing batch operations: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error executing batch operations: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -505,7 +514,8 @@ async function runDbTransaction<T>(
     }
   } catch (error) {
     logger.error(
-      `Error executing database transaction: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error executing database transaction: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
@@ -535,7 +545,8 @@ async function documentExists(
     return exists
   } catch (error) {
     logger.error(
-      `Error checking if document with ID: ${docId} exists in collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error checking if document with ID: ${docId} exists in collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return false
@@ -564,7 +575,8 @@ async function countDocuments(
     }
   } catch (error) {
     logger.error(
-      `Error counting documents in collection ${collectionPath}: ${error instanceof Error ? error.message : 'Unknown error'
+      `Error counting documents in collection ${collectionPath}: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     )
     return {
