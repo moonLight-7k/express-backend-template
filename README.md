@@ -1,4 +1,4 @@
-# TEFL Mobile App Backend
+# Express Backend Template with Redis Queue
 
 A Node.js backend service built with Express and Firebase.
 
