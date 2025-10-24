@@ -1,4 +1,4 @@
-# TEFL Mobile App Backend
+# Express Backend Template
 
 A Node.js backend service built with Express and Firebase.
 
