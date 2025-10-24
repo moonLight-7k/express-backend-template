@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import admin from 'firebase-admin'
-import { logger } from '../utils/logger'
+import { logger } from '@/utils/logger'
 import * as jwt from 'jsonwebtoken'
-
-
 
 /**
  * Authentication middleware to verify Firebase JWT tokens
@@ -15,7 +13,6 @@ export const authMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ error: 'Unauthorized - No token provided' })

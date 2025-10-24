@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import admin from 'firebase-admin'
-import { db } from '../../config/firebase'
-import { logger } from '../../utils/logger'
+import { db } from '@/config/firebase'
+import { logger } from '@/utils/logger'
 
 export const deleteAccount = async (req: Request, res: Response) => {
   try {

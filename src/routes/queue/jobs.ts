@@ -5,8 +5,8 @@ import {
     addDataProcessingJob,
     retryJob,
     removeJob,
-} from '../../controller/queue'
-import { getJobStatus } from '../../controller/queue'
+} from '@/controllers/queue'
+import { getJobStatus } from '@/controllers/queue'
 
 const jobsRouter = Router()
 

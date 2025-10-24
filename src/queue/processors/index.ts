@@ -5,8 +5,7 @@ export { initializeDataProcessingProcessor } from './dataProcessingProcessor'
 import { initializeEmailProcessor } from './emailProcessor'
 import { initializeNotificationProcessor } from './notificationProcessor'
 import { initializeDataProcessingProcessor } from './dataProcessingProcessor'
-import { logger } from '../../utils/logger'
-
+import { logger } from '@/utils/logger'
 
 export function initializeAllProcessors(): void {
     logger.info('🚀 Initializing queue processors...')

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import admin from 'firebase-admin'
-import { logger } from '../../utils/logger'
+import { logger } from '@/utils/logger'
 
 export const login = async (req: Request, res: Response) => {
   try {

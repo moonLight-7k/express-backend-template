@@ -1,6 +1,6 @@
 import request from 'supertest'
 import express from 'express'
-import { versionController } from '../../src/controller/version/version'
+import { versionController } from '../../src/controllers/version/version'
 
 describe('Version Controller Tests', () => {
     let app: express.Application

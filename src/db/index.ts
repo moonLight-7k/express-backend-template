@@ -28,10 +28,10 @@ import {
   FirestoreListResponse,
   PaginationOptions,
   QueryOptions,
-} from '../types/firestore'
+} from '@/types/firestore'
 
 export class FirestoreUtils {
-  constructor(private db: Firestore) {}
+  constructor(private db: Firestore) { }
 
   // CREATE operations
 

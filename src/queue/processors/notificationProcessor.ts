@@ -1,8 +1,7 @@
 import { Job } from 'bull'
-import { queueManager } from '../queueManager'
-import { QueueName, NotificationJobData } from '../../types/queue'
-import { logger } from '../../utils/logger'
-
+import { queueManager } from '@/queue/queueManager'
+import { QueueName, NotificationJobData } from '@/types/queue'
+import { logger } from '@/utils/logger'
 
 async function processNotificationJob(
     job: Job<NotificationJobData>,

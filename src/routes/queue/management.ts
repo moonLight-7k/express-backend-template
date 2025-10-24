@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { pauseQueue, resumeQueue, cleanQueue, emptyQueue } from '../../controller/queue'
+import {
+    pauseQueue,
+    resumeQueue,
+    cleanQueue,
+    emptyQueue,
+} from '@/controllers/queue'
 
 const managementRouter = Router()
 

@@ -1,8 +1,7 @@
 import { Job } from 'bull'
-import { queueManager } from '../queueManager'
-import { QueueName, EmailJobData } from '../../types/queue'
-import { logger } from '../../utils/logger'
-
+import { queueManager } from '@/queue/queueManager'
+import { QueueName, EmailJobData } from '@/types/queue'
+import { logger } from '@/utils/logger'
 
 async function processEmailJob(job: Job<EmailJobData>): Promise<any> {
     const { to, subject, body, html, cc, bcc, attachments } = job.data

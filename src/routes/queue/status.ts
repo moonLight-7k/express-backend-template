@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getQueueStatus, getAllQueuesStatus } from '../../controller/queue'
+import { getQueueStatus, getAllQueuesStatus } from '@/controllers/queue'
 
 const statusRouter = Router()
 

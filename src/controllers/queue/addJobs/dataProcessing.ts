@@ -3,8 +3,6 @@ import { queueManager } from '@/queue/queueManager'
 import { logger } from '@/utils/logger'
 import { DataProcessingJobData, QueueName } from '@/types/queue'
 
-
-
 export const addDataProcessingJob = async (req: Request, res: Response) => {
   try {
     const jobData: DataProcessingJobData = req.body

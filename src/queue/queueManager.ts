@@ -1,14 +1,13 @@
 import Bull, { Queue, Job, JobOptions as BullJobOptions } from 'bull'
-import { bullRedisConfig } from '../config/redis'
-import { logger } from '../utils/logger'
+import { bullRedisConfig } from '@/config/redis'
+import { logger } from '@/utils/logger'
 import {
     QueueName,
     JobData,
     JobOptions,
     QueueStatus,
     JobStatus,
-} from '../types/queue'
-
+} from '@/types/queue'
 
 class QueueManager {
     private queues: Map<string, Queue> = new Map()
@@ -37,7 +36,6 @@ class QueueManager {
         return this.queues.get(name)!
     }
 
-
     public async addJob(
         queueName: QueueName | string,
         jobName: string,
@@ -64,7 +62,6 @@ class QueueManager {
         return job
     }
 
-
     public async getJob(
         queueName: QueueName | string,
         jobId: string,
@@ -72,7 +69,6 @@ class QueueManager {
         const queue = this.getQueue(queueName)
         return await queue.getJob(jobId)
     }
-
 
     public async getJobStatus(
         queueName: QueueName | string,
@@ -103,7 +99,6 @@ class QueueManager {
         }
     }
 
-
     public async getQueueStatus(
         queueName: QueueName | string,
     ): Promise<QueueStatus> {
@@ -130,20 +125,17 @@ class QueueManager {
         }
     }
 
-
     public async pauseQueue(queueName: QueueName | string): Promise<void> {
         const queue = this.getQueue(queueName)
         await queue.pause()
         logger.info(`⏸️  Queue "${queueName}" paused`)
     }
 
-
     public async resumeQueue(queueName: QueueName | string): Promise<void> {
         const queue = this.getQueue(queueName)
         await queue.resume()
         logger.info(`▶️  Queue "${queueName}" resumed`)
     }
-
 
     public async cleanQueue(
         queueName: QueueName | string,
@@ -158,7 +150,6 @@ class QueueManager {
         })
         return jobs
     }
-
 
     public async emptyQueue(queueName: QueueName | string): Promise<void> {
         const queue = this.getQueue(queueName)
@@ -228,7 +219,6 @@ class QueueManager {
             logger.info(`🗑️  Job ${job.id} removed from "${name}" queue`)
         })
     }
-
 
     public async closeAll(): Promise<void> {
         const closePromises = Array.from(this.queues.entries()).map(

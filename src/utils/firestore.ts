@@ -1,4 +1,4 @@
-import { db } from '../config/firebase'
+import { db } from '@/config/firebase'
 import admin from 'firebase-admin'
 import {
   FirestoreDocument,
@@ -6,8 +6,8 @@ import {
   FirestoreListResponse,
   QueryOptions,
   PaginationOptions,
-} from '../types/firestore'
-import { logger } from '../utils/logger'
+} from '@/types/firestore'
+import { logger } from '@/utils/logger'
 
 /**
  * Create a new document with auto-generated ID

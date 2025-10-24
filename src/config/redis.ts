@@ -1,6 +1,6 @@
 import Redis from 'ioredis'
-import { env } from './environment'
-import { logger } from '../utils/logger'
+import { env } from '@/config/environment'
+import { logger } from '@/utils/logger'
 
 /**
  * Redis connection configuration

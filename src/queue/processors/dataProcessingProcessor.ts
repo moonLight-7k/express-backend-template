@@ -1,7 +1,7 @@
 import { Job } from 'bull'
-import { queueManager } from '../queueManager'
-import { QueueName, DataProcessingJobData } from '../../types/queue'
-import { logger } from '../../utils/logger'
+import { queueManager } from '@/queue/queueManager'
+import { QueueName, DataProcessingJobData } from '@/types/queue'
+import { logger } from '@/utils/logger'
 
 async function processDataProcessingJob(
     job: Job<DataProcessingJobData>,
@@ -17,7 +17,6 @@ async function processDataProcessingJob(
         await job.progress(10)
 
         // TODO: Replace with actual data processing logic based on type
-
 
         await new Promise((resolve) => setTimeout(resolve, 2000))
         await job.progress(50)
@@ -55,11 +54,8 @@ async function processDataProcessingJob(
     }
 }
 
-
 export function initializeDataProcessingProcessor(): void {
-    const dataProcessingQueue = queueManager.getQueue(
-        QueueName.DATA_PROCESSING,
-    )
+    const dataProcessingQueue = queueManager.getQueue(QueueName.DATA_PROCESSING)
 
     dataProcessingQueue.process('process-data', 3, processDataProcessingJob)
 

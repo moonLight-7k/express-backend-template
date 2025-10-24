@@ -4,7 +4,6 @@ import { env, validateFirebaseConfig } from './environment'
 
 dotenv.config()
 
-
 let credential
 
 if (validateFirebaseConfig()) {

@@ -3,8 +3,6 @@ import { queueManager } from '@/queue/queueManager'
 import { logger } from '@/utils/logger'
 import { NotificationJobData, QueueName } from '@/types/queue'
 
-
-
 export const addNotificationJob = async (req: Request, res: Response) => {
   try {
     const jobData: NotificationJobData = req.body

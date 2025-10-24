@@ -1,6 +1,6 @@
 import request from 'supertest'
 import express from 'express'
-import { healthController } from '../../src/controller/health/health'
+import { healthController } from '../../src/controllers/health/health'
 
 describe('Health Controller Tests', () => {
     let app: express.Application
