@@ -1,5 +1,6 @@
 import request from 'supertest'
 import express from 'express'
+import { StatusCodes } from 'http-status-codes'
 import { healthController } from '../../src/controller/health/health'
 
 describe('Health Controller Tests', () => {
@@ -20,7 +21,7 @@ describe('Health Controller Tests', () => {
     it('should return health status with system information', async () => {
         const response = await request(app).get('/api/v1/health')
 
-        expect(response.status).toBe(200)
+        expect(response.status).toBe(StatusCodes.OK)
         expect(response.body).toHaveProperty('status', 'success')
         expect(response.body).toHaveProperty('timestamp')
         expect(response.body).toHaveProperty('server')

@@ -1,5 +1,6 @@
 import request from 'supertest'
 import express from 'express'
+import { StatusCodes } from 'http-status-codes'
 import { authMiddleware } from '../../src/middleware/auth'
 
 // Mock firebase-admin completely
@@ -55,7 +56,7 @@ describe('Auth Middleware Tests', () => {
         it('should return 401 when no authorization header is provided', async () => {
             const response = await request(app).get('/protected')
 
-            expect(response.status).toBe(401)
+            expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
             expect(response.body).toHaveProperty('error', 'Unauthorized - No token provided')
         })
 
@@ -64,7 +65,7 @@ describe('Auth Middleware Tests', () => {
                 .get('/protected')
                 .set('Authorization', 'InvalidToken')
 
-            expect(response.status).toBe(401)
+            expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
             expect(response.body).toHaveProperty('error', 'Unauthorized - No token provided')
         })
     })
@@ -78,7 +79,7 @@ describe('Auth Middleware Tests', () => {
                 .get('/protected')
                 .set('Authorization', 'Bearer valid-firebase-token')
 
-            expect(response.status).toBe(200)
+            expect(response.status).toBe(StatusCodes.OK)
             expect(response.body).toHaveProperty('message', 'Access granted')
             expect(response.body.user).toEqual(mockDecodedToken)
             expect(mockVerifyIdToken).toHaveBeenCalledWith('valid-firebase-token')
@@ -98,7 +99,7 @@ describe('Auth Middleware Tests', () => {
                 .get('/protected')
                 .set('Authorization', 'Bearer valid-custom-token')
 
-            expect(response.status).toBe(200)
+            expect(response.status).toBe(StatusCodes.OK)
             expect(response.body).toHaveProperty('message', 'Access granted')
             expect(response.body.user).toEqual({ uid: 'test-user-id' })
             expect(mockJwtDecode).toHaveBeenCalledWith('valid-custom-token')
@@ -118,7 +119,7 @@ describe('Auth Middleware Tests', () => {
                 .get('/protected')
                 .set('Authorization', 'Bearer expired-token')
 
-            expect(response.status).toBe(401)
+            expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
             expect(response.body).toHaveProperty('error', 'Token expired')
         })
 
@@ -132,7 +133,7 @@ describe('Auth Middleware Tests', () => {
                 .get('/protected')
                 .set('Authorization', 'Bearer invalid-custom-token')
 
-            expect(response.status).toBe(401)
+            expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
             expect(response.body).toHaveProperty('error', 'Invalid token')
         })
 
@@ -147,7 +148,7 @@ describe('Auth Middleware Tests', () => {
                 .get('/protected')
                 .set('Authorization', 'Bearer custom-token-non-existent-user')
 
-            expect(response.status).toBe(401)
+            expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
             expect(response.body).toHaveProperty('error', 'Invalid token')
         })
     })

@@ -1,4 +1,6 @@
 import { Request, Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
+import { logger } from '@/utils/logger'
 import os from 'os'
 
 export const healthController = async (req: Request, res: Response) => {
@@ -17,7 +19,7 @@ export const healthController = async (req: Request, res: Response) => {
   const cpuCores = cpus.length
   const loadAvg = os.loadavg()
 
-  res.status(200).json({
+  res.status(StatusCodes.OK).json({
     status: 'success',
     timestamp: new Date().toISOString(),
     server: {

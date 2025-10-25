@@ -1,5 +1,6 @@
 import request from 'supertest'
 import express from 'express'
+import { StatusCodes } from 'http-status-codes'
 import { versionController } from '../../src/controller/version/version'
 
 describe('Version Controller Tests', () => {
@@ -15,7 +16,7 @@ describe('Version Controller Tests', () => {
     it('should return version information from package.json', async () => {
         const response = await request(app).get('/api/v1/version')
 
-        expect(response.status).toBe(200)
+        expect(response.status).toBe(StatusCodes.OK)
         expect(response.body).toHaveProperty('status', 'success')
         expect(response.body).toHaveProperty('version')
         expect(response.body).toHaveProperty('name')

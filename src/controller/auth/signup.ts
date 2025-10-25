@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
 import admin from 'firebase-admin'
 import { db } from '@/config/firebase'
 import { logger } from '@/utils/logger'
@@ -8,7 +9,7 @@ export const signup = async (req: Request, res: Response) => {
     const { email, password, displayName } = req.body
 
     if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' })
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Email and password are required' })
     }
 
     const userRecord = await admin.auth().createUser({
@@ -30,7 +31,7 @@ export const signup = async (req: Request, res: Response) => {
     logger.info(`New user created: ${userRecord.uid}`)
     const customToken = await admin.auth().createCustomToken(userRecord.uid)
 
-    return res.status(201).json({
+    return res.status(StatusCodes.CREATED).json({
       message: 'User created successfully',
       userId: userRecord.uid,
       token: customToken,
@@ -39,17 +40,17 @@ export const signup = async (req: Request, res: Response) => {
     logger.error('Error creating user:', error)
 
     if (error.code === 'auth/email-already-exists') {
-      return res.status(409).json({ error: 'Email already in use' })
+      return res.status(StatusCodes.CONFLICT).json({ error: 'Email already in use' })
     }
 
     if (error.code === 'auth/invalid-email') {
-      return res.status(400).json({ error: 'Invalid email format' })
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid email format' })
     }
 
     if (error.code === 'auth/weak-password') {
-      return res.status(400).json({ error: 'Password is too weak' })
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Password is too weak' })
     }
 
-    return res.status(500).json({ error: 'Failed to create user' })
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Failed to create user' })
   }
 }

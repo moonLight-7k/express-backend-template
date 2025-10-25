@@ -1,5 +1,6 @@
 import request from 'supertest'
 import express from 'express'
+import { StatusCodes } from 'http-status-codes'
 import { apiRouter } from '../../src/routes'
 
 jest.mock('../../src/middleware/auth', () => ({
@@ -45,11 +46,10 @@ describe('API Routes Integration Tests', () => {
         it('should return detailed health information', async () => {
             const response = await request(app).get('/api/v1/health')
 
-            expect(response.status).toBe(200)
-            expect(response.body).toHaveProperty('status', 'OK')
+            expect(response.status).toBe(StatusCodes.OK)
+            expect(response.body).toHaveProperty('status', 'success')
             expect(response.body).toHaveProperty('timestamp')
-            expect(response.body).toHaveProperty('requestId')
-            expect(response.body).toHaveProperty('uptime')
+            expect(response.body).toHaveProperty('server')
             expect(response.body).toHaveProperty('system')
         })
     })
@@ -58,7 +58,7 @@ describe('API Routes Integration Tests', () => {
         it('should return version information', async () => {
             const response = await request(app).get('/api/v1/version')
 
-            expect(response.status).toBe(200)
+            expect(response.status).toBe(StatusCodes.OK)
             expect(response.body).toHaveProperty('status', 'success')
             expect(response.body).toHaveProperty('version', '1.0.0')
             expect(response.body).toHaveProperty('name', 'express-ts-templete')
@@ -71,7 +71,7 @@ describe('API Routes Integration Tests', () => {
                 .post('/api/v1/auth/login')
                 .send({ email: 'test@example.com', password: 'password' })
 
-            expect([200, 400, 401, 500]).toContain(loginResponse.status)
+            expect([StatusCodes.OK, StatusCodes.BAD_REQUEST, StatusCodes.UNAUTHORIZED, StatusCodes.INTERNAL_SERVER_ERROR]).toContain(loginResponse.status)
         })
     })
 })

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
 import admin from 'firebase-admin'
 import { logger } from '@/utils/logger'
 
@@ -7,7 +8,7 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body
 
     if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' })
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Email and password are required' })
     }
 
     const userRecord = await admin.auth().getUserByEmail(email)
@@ -16,7 +17,7 @@ export const login = async (req: Request, res: Response) => {
 
     logger.info(`User logged in: ${userRecord.uid}`)
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       message: 'Login successful',
       token: customToken,
       user: {
@@ -32,9 +33,9 @@ export const login = async (req: Request, res: Response) => {
       error.code === 'auth/user-not-found' ||
       error.code === 'auth/wrong-password'
     ) {
-      return res.status(401).json({ error: 'Invalid email or password' })
+      return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Invalid email or password' })
     }
 
-    return res.status(500).json({ error: 'Failed to login' })
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Failed to login' })
   }
 }

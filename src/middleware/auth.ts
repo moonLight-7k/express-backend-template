@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { StatusCodes } from 'http-status-codes'
 import admin from 'firebase-admin'
 import { logger } from '@/utils/logger'
 import * as jwt from 'jsonwebtoken'
@@ -15,7 +16,7 @@ export const authMiddleware = async (
   try {
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'Unauthorized - No token provided' })
+      return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Unauthorized - No token provided' })
     }
 
     const token = authHeader.split(' ')[1]
@@ -41,14 +42,14 @@ export const authMiddleware = async (
         logger.error('Custom token error:', customTokenError)
 
         if (idTokenError.code === 'auth/id-token-expired') {
-          return res.status(401).json({ error: 'Token expired' })
+          return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Token expired' })
         }
 
-        return res.status(401).json({ error: 'Invalid token' })
+        return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Invalid token' })
       }
     }
   } catch (error: any) {
     logger.error('Authentication error:', error)
-    return res.status(401).json({ error: 'Unauthorized' })
+    return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Unauthorized' })
   }
 }

@@ -1,4 +1,5 @@
 import express from 'express'
+import { StatusCodes } from 'http-status-codes'
 import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
@@ -33,7 +34,7 @@ export const createTestApp = () => {
     })
 
     app.get('/health', (req: express.Request, res: express.Response) => {
-        res.status(200).json({
+        res.status(StatusCodes.OK).json({
             status: 'OK',
             timestamp: new Date().toISOString(),
             requestId: req.requestId,
@@ -44,14 +45,14 @@ export const createTestApp = () => {
     app.use('/api/v1', apiRouter)
 
     app.use((req: express.Request, res: express.Response) => {
-        res.status(404).json({
+        res.status(StatusCodes.NOT_FOUND).json({
             error: 'Resource not found',
             requestId: req.requestId,
         })
     })
 
     app.use((err: Error & { status?: number }, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.status(err.status || 500).json({
+        res.status(err.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
             error: err.message || 'Internal server error',
             requestId: req.requestId,
         })
